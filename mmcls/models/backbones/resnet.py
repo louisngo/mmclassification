@@ -452,6 +452,8 @@ class ResNet(BaseBackbone):
     """
 
     arch_settings = {
+        8: (BasicBlock, (2, 2, 2, 2)),
+        16: (BasicBlock, (2, 2, 2, 2)),
         18: (BasicBlock, (2, 2, 2, 2)),
         34: (BasicBlock, (3, 4, 6, 3)),
         50: (Bottleneck, (3, 4, 6, 3)),

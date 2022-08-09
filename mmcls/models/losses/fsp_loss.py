@@ -19,7 +19,7 @@ def fsp_matrix(fm1, fm2):
 @LOSSES.register_module()
 class FspLoss(nn.Module):
 
-    def __init__(self, reduction='mean'):
+    def __init__(self, reduction='batchmean'):
         super(FspLoss, self).__init__()
         self.reduction = reduction
 

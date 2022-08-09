@@ -29,9 +29,12 @@ def knowledge_distillation_kl_div_loss(pred,
     if detach_target:
         target = target.detach()
 
+    # kd_loss = F.kl_div(
+    #     F.log_softmax(pred / T, dim=1), target, reduction='none').mean(1) * (
+    #         T * T)
     kd_loss = F.kl_div(
-        F.log_softmax(pred / T, dim=1), target, reduction='none').mean(1) * (
-            T * T)
+         F.log_softmax(pred / T, dim=1), target, reduction='batchmean') * (
+             T * T)
 
     return kd_loss
 
@@ -46,7 +49,7 @@ class KnowledgeDistillationKLDivLoss(nn.Module):
         T (int): Temperature for distillation.
     """
 
-    def __init__(self, reduction='mean', loss_weight=1.0, T=10):
+    def __init__(self, reduction='mean', loss_weight=1.0, T=4):
         super(KnowledgeDistillationKLDivLoss, self).__init__()
         assert T >= 1
         self.reduction = reduction
